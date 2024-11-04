@@ -1,6 +1,6 @@
-package DAO;
+package org.example.DAO;
 
-import model.Coche;
+import org.example.model.Coche;
 import org.hibernate.Session;
 
 import java.util.List;

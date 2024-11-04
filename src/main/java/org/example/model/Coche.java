@@ -1,6 +1,7 @@
-package model;
+package org.example.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 @Entity
 @Table(name = "coche")
@@ -10,7 +11,7 @@ public class Coche {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "matricula")
+    @Column(name = "matricula", unique = true)
     private String matricula;
 
     @Column(name = "marca")
@@ -22,6 +23,10 @@ public class Coche {
     @Column(name = "tipo")
     private String tipo;
 
+
+    @OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
+    private List<Multa> multas;
+
     public Coche() {
     }
 
@@ -30,6 +35,14 @@ public class Coche {
         this.marca = marca;
         this.modelo = modelo;
         this.tipo = tipo;
+    }
+
+    public List<Multa> getMultas() {
+        return multas;
+    }
+
+    public void setMultas(List<Multa> multas) {
+        this.multas = multas;
     }
 
     public int getId() {

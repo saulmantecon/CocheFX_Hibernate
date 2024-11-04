@@ -1,10 +1,10 @@
-package aplication;
+package org.example;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import util.R;
+import org.example.util.R;
 
 import java.io.IOException;
 

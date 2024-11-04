@@ -1,18 +1,18 @@
 package org.example.DAO;
 
 import org.example.model.Coche;
+import org.example.model.Multa;
 import org.hibernate.Session;
 
 import java.util.List;
 
-public class CocheDaoImpl implements CocheDAO {
-
+public class MultaDAOImpl implements MultaDAO{
     @Override
-    public  boolean crearCoche(Session session, Coche coche) {
+    public  boolean crearMulta(Session session, Multa multa) {
         boolean crearcoche=true;
         try{
             session.beginTransaction();
-            session.save(coche);
+            session.save(multa);
             session.getTransaction().commit();
         }catch (Exception e) {
             crearcoche=false;
@@ -23,12 +23,12 @@ public class CocheDaoImpl implements CocheDAO {
         return crearcoche;
     }
 
-   @Override
-    public  boolean eliminarCoche(Session session, Coche coche) {
+    @Override
+    public  boolean eliminarMulta(Session session, Multa multa) {
         boolean eliminarcoche=true;
         try {
             session.beginTransaction();
-            session.delete(coche);
+            session.delete(multa);
             session.getTransaction().commit();
         }catch (Exception e) {
             eliminarcoche=false;
@@ -39,12 +39,12 @@ public class CocheDaoImpl implements CocheDAO {
         return eliminarcoche;
     }//eliminarCoche
 
-  @Override
-    public  boolean actualizarCoche(Session session, Coche coche) {
+    @Override
+    public  boolean actualizarMulta(Session session, Multa multa) {
         boolean actualizarcoche=true;
         try {
             session.beginTransaction();
-            session.update(coche);
+            session.update(multa);
             session.getTransaction().commit();
         }catch (Exception e) {
             actualizarcoche=false;
@@ -56,13 +56,13 @@ public class CocheDaoImpl implements CocheDAO {
 
     }
 
-   @Override
-    public  List<Coche> listarCoches(Session session) {
+    @Override
+    public List<Multa> listarMultaCoche(Session session, String matricula) {
         session.beginTransaction();
-        List<Coche> listaCoches = null;
-        listaCoches = session.createQuery("from Coche ", Coche.class).list();
+        List<Multa> listamultas;
+        listamultas = session.createQuery("from multas where matricula=" + matricula, Multa.class).list();
         session.getTransaction().commit();
 
-        return listaCoches;
+        return listamultas;
     }
 }

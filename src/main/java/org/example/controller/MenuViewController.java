@@ -1,24 +1,27 @@
-package controller;
+package org.example.controller;
 
-import DAO.CocheDaoImpl;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import org.example.DAO.CocheDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import model.Coche;
+import org.example.model.Coche;
+import org.example.util.R;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import util.Alerta;
-import util.HibernateUtil;
-import util.Validar;
+import org.example.util.Alerta;
+import org.example.util.HibernateUtil;
+import org.example.util.Validar;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,14 +55,14 @@ public class MenuViewController implements Initializable {
 
     @FXML
     private TextField textfieldModelo;
+
     SessionFactory sessionFactory;
+
     Session session;
+
     Coche cocheseleccionado;
 
-
-
     CocheDaoImpl cocheDao = new CocheDaoImpl();
-
 
     private final ArrayList<String> listaTipos = new ArrayList<>(Arrays.asList("Turismo", "Camion", "Monovolumen", "Deportivo"));
 
@@ -83,10 +86,10 @@ public class MenuViewController implements Initializable {
         if (!Validar.validarMatriculaEuropea_Exp(matricula)){
             Alerta.mostrarAlerta("Escribe una matricula correcta");
         }else {
-            String modelo = textfieldModelo.getText();
             String marca = textfieldMarca.getText();
+            String modelo = textfieldModelo.getText();
             String tipo = comboboxTipo.getValue();
-            Coche coche = new Coche(matricula, modelo, marca, tipo);
+            Coche coche = new Coche(matricula, marca, modelo, tipo);
             if (cocheDao.crearCoche(session, coche)){
                 Alerta.mostrarAlerta("Coche creado correctamente");
                 listacoches.addAll(coche);
@@ -121,8 +124,8 @@ public class MenuViewController implements Initializable {
             Alerta.mostrarAlerta("Introduce una matricula correcta");
         }else {
             cocheseleccionado.setMatricula(textfieldMatricula.getText());
-            cocheseleccionado.setModelo(textfieldModelo.getText());
             cocheseleccionado.setMarca(textfieldMarca.getText());
+            cocheseleccionado.setModelo(textfieldModelo.getText());
             cocheseleccionado.setTipo(comboboxTipo.getValue());
 
             if (cocheDao.actualizarCoche(session, cocheseleccionado)){
@@ -134,6 +137,32 @@ public class MenuViewController implements Initializable {
 
         }
     }//clickModificar
+
+    @FXML
+    void clickVerMultas(ActionEvent event) {
+        try {
+            // Cargar el archivo FXML
+            FXMLLoader fxmlLoader = new FXMLLoader(R.getUI("multa-view.fxml"));
+            Parent contenidoFXML = fxmlLoader.load();
+            multaViewController controller = fxmlLoader.getController();
+            controller.cogerCoche(cocheseleccionado);
+
+
+            // Crear un nuevo Stage
+            Stage nuevoStage = new Stage();
+
+            // Crear una nueva escena y establecerla en el nuevo Stage
+            Scene nuevaEscena = new Scene(contenidoFXML);
+            nuevoStage.setScene(nuevaEscena);
+
+            // Mostrar el nuevo Stage
+            nuevoStage.show();
+
+        } catch (IOException e) {
+            System.out.println("Error al cargar la nueva ventana: " + e.getMessage());
+        }
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -148,6 +177,5 @@ public class MenuViewController implements Initializable {
         idColumnTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         listacoches = FXCollections.observableArrayList(cocheDao.listarCoches(session));
         idTableView.setItems(listacoches);
-
     }//initialize
 }
