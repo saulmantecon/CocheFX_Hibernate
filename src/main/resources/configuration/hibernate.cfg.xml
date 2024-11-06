@@ -11,8 +11,5 @@
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hibernate.show_sql">true</property>
 
-        <!-- Mapea las clases de entidad -->
-        <mapping class="org.example.model.Coche"/>
-        <mapping class="org.example.model.Multa"/>
     </session-factory>
 </hibernate-configuration>

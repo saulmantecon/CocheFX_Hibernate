@@ -60,7 +60,7 @@ public class MultaDAOImpl implements MultaDAO{
     public List<Multa> listarMultaCoche(Session session, String matricula) {
         session.beginTransaction();
         List<Multa> listamultas;
-        listamultas = session.createQuery("from multas where matricula=" + matricula, Multa.class).list();
+        listamultas = session.createQuery("from Multa where matricula= '"+matricula+"'", Multa.class).list();
         session.getTransaction().commit();
 
         return listamultas;

@@ -14,7 +14,8 @@ public class R {
     }
 
     public static URL getUI(String name) {
-        System.out.println(Thread.currentThread().getContextClassLoader().getResource("ui" + File.separator + name));
-        return Thread.currentThread().getContextClassLoader().getResource("ui" + File.separator + name);
+        System.out.println(Thread.currentThread().getContextClassLoader().getResource("ui/" + name));
+        return Thread.currentThread().getContextClassLoader().getResource("ui/" + name);
     }
+
 }

@@ -65,4 +65,9 @@ public class CocheDaoImpl implements CocheDAO {
 
         return listaCoches;
     }
+
+    public Coche listarCochePorMatricula(Session session,String matricula){
+        return (Coche) session.createQuery("FROM COCHE WHERE MATRICULA = "+matricula).uniqueResult();
+
+    }
 }

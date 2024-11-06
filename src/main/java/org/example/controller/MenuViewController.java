@@ -62,7 +62,7 @@ public class MenuViewController implements Initializable {
 
     Coche cocheseleccionado;
 
-    CocheDaoImpl cocheDao = new CocheDaoImpl();
+    static CocheDaoImpl cocheDao = new CocheDaoImpl();
 
     private final ArrayList<String> listaTipos = new ArrayList<>(Arrays.asList("Turismo", "Camion", "Monovolumen", "Deportivo"));
 
@@ -148,6 +148,7 @@ public class MenuViewController implements Initializable {
             controller.cogerCoche(cocheseleccionado);
 
 
+
             // Crear un nuevo Stage
             Stage nuevoStage = new Stage();
 
@@ -160,6 +161,7 @@ public class MenuViewController implements Initializable {
 
         } catch (IOException e) {
             System.out.println("Error al cargar la nueva ventana: " + e.getMessage());
+            e.printStackTrace();
         }
 
     }

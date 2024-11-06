@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "multas")
+@Table(name = "multa")
 public class Multa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +21,6 @@ public class Multa {
     @Column(name = "fecha")
     private LocalDate fecha;
 
-    @OneToMany(mappedBy = "multa", cascade = CascadeType.ALL)
-    private List<Coche> coches;
 
     @ManyToOne
     @JoinColumn(name = "matricula", referencedColumnName = "matricula")
@@ -50,6 +48,8 @@ public class Multa {
         return id_multa;
     }
 
+
+
     public void setId_multa(int id_multa) {
         this.id_multa = id_multa;
     }
@@ -70,11 +70,5 @@ public class Multa {
         this.fecha = fecha;
     }
 
-    public List<Coche> getCoches() {
-        return coches;
-    }
 
-    public void setCoches(List<Coche> coches) {
-        this.coches = coches;
-    }
 }

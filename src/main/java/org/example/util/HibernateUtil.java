@@ -1,6 +1,7 @@
 package org.example.util;
 
 import org.example.model.Coche;
+import org.example.model.Multa;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -25,6 +26,7 @@ public class HibernateUtil {
         cfg.configure("configuration/hibernate.cfg.xml");
 
         cfg.addAnnotatedClass(Coche.class);
+        cfg.addAnnotatedClass(Multa.class);
         factory = cfg.buildSessionFactory();
     }
 
