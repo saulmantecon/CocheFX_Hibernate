@@ -115,6 +115,7 @@ public class MenuViewController implements Initializable {
         textfieldMarca.clear();
         textfieldModelo.clear();
         comboboxTipo.setValue(null);
+        cocheseleccionado=null;
     }//clickLimpiar
 
     @FXML
@@ -140,29 +141,33 @@ public class MenuViewController implements Initializable {
 
     @FXML
     void clickVerMultas(ActionEvent event) {
-        try {
-            // Cargar el archivo FXML
-            FXMLLoader fxmlLoader = new FXMLLoader(R.getUI("multa-view.fxml"));
-            Parent contenidoFXML = fxmlLoader.load();
-            multaViewController controller = fxmlLoader.getController();
-            controller.cogerCoche(cocheseleccionado);
+        if (cocheseleccionado!=null){
+            try {
+                // Cargar el archivo FXML
+                FXMLLoader fxmlLoader = new FXMLLoader(R.getUI("multa-view.fxml"));
+                Parent contenidoFXML = fxmlLoader.load();
+                multaViewController controller = fxmlLoader.getController();
+                controller.cogerCoche(cocheseleccionado);
 
 
 
-            // Crear un nuevo Stage
-            Stage nuevoStage = new Stage();
+                // Crear un nuevo Stage
+                Stage nuevoStage = new Stage();
 
-            // Crear una nueva escena y establecerla en el nuevo Stage
-            Scene nuevaEscena = new Scene(contenidoFXML);
-            nuevoStage.setScene(nuevaEscena);
+                // Crear una nueva escena y establecerla en el nuevo Stage
+                Scene nuevaEscena = new Scene(contenidoFXML);
+                nuevoStage.setScene(nuevaEscena);
 
-            // Mostrar el nuevo Stage
-            nuevoStage.show();
+                // Mostrar el nuevo Stage
+                nuevoStage.show();
 
-        } catch (IOException e) {
-            System.out.println("Error al cargar la nueva ventana: " + e.getMessage());
-            e.printStackTrace();
+            } catch (IOException e) {
+                System.out.println("Error al cargar la nueva ventana: " + e.getMessage());
+            }
+        }else {
+            Alerta.mostrarAlerta("Seleccione un coche para mostrar sus multas");
         }
+
 
     }
 

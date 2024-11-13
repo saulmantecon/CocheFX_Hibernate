@@ -53,7 +53,7 @@ public class multaViewController implements Initializable {
 
     Session session;
 
-    private ObservableList<Multa> listamultas;
+    private ObservableList<Multa> listamultas = FXCollections.observableArrayList();
 
     Coche cocheActual;
     Multa multaActual;
@@ -68,6 +68,7 @@ public class multaViewController implements Initializable {
             textfieldIdMulta.setText(String.valueOf(multaActual.getId_multa()));
             textfieldPrecio.setText(String.valueOf(multaActual.getPrecio()));
             textfieldFecha.setValue(multaActual.getFecha());
+            textfieldIdMulta.setEditable(false);
         }
     }
 
@@ -117,11 +118,9 @@ public class multaViewController implements Initializable {
 
     @FXML
     void clickLimpiar(ActionEvent event) {
-        textfieldMatricula.clear();
-        textfieldIdMulta.clear();
         textfieldPrecio.clear();
         textfieldFecha.setValue(null);
-
+        textfieldIdMulta.setEditable(true);
     }
 
     @Override

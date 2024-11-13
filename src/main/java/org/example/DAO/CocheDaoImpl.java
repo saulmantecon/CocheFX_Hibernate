@@ -59,15 +59,19 @@ public class CocheDaoImpl implements CocheDAO {
    @Override
     public  List<Coche> listarCoches(Session session) {
         session.beginTransaction();
-        List<Coche> listaCoches = null;
+        List<Coche> listaCoches;
         listaCoches = session.createQuery("from Coche ", Coche.class).list();
         session.getTransaction().commit();
 
         return listaCoches;
     }
 
+    /*
+
     public Coche listarCochePorMatricula(Session session,String matricula){
-        return (Coche) session.createQuery("FROM COCHE WHERE MATRICULA = "+matricula).uniqueResult();
+        return (Coche) session.createQuery("FROM Coche WHERE matricula = "+matricula).uniqueResult();
 
     }
+
+     */
 }

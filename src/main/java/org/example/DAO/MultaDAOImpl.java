@@ -58,11 +58,18 @@ public class MultaDAOImpl implements MultaDAO{
 
     @Override
     public List<Multa> listarMultaCoche(Session session, String matricula) {
-        session.beginTransaction();
-        List<Multa> listamultas;
-        listamultas = session.createQuery("from Multa where matricula= '"+matricula+"'", Multa.class).list();
-        session.getTransaction().commit();
-
+        List<Multa> listamultas = null;
+        try {
+            session.beginTransaction();
+            listamultas = session.createQuery("from Multa where coche.matricula = :matricula", Multa.class)
+                    .setParameter("matricula", matricula)
+                    .list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) session.getTransaction().rollback();
+            e.printStackTrace();
+        }
         return listamultas;
     }
+
 }
